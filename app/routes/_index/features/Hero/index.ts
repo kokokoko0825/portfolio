@@ -1,1 +1,1 @@
-export { Hero as Header } from "./Hero";
+export { Hero as features } from "./Hero";

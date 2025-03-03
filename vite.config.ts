@@ -23,6 +23,14 @@ export default defineConfig({
         v3_singleFetch: true,
         v3_lazyRouteDiscovery: true,
       },
+      routes(defineRoutes) {
+        return defineRoutes((route) => {
+          route("/blog", "routes/blog/index.tsx");
+          route("/blog/new", "routes/blog/newBlog.tsx");
+          route("/blog/edit", "routes/blog/editBlog.tsx");
+          route("/blog/:blogId", "routes/blog/$blogId.tsx");
+        });
+      },
     }),
     tsconfigPaths(),
     vanillaExtractPlugin(),

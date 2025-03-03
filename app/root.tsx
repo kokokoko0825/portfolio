@@ -14,14 +14,14 @@ import { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
 
 export function Layout({ children }: { children: React.ReactNode }): ReactNode {
   return (
-    <html lang="ja" style={{ margin: 0, padding: 0, }}>
+    <html lang="ja">
       <head>
         
         <Meta />
         <Links />
         <title>Koshi Quest(仮)</title>
       </head>
-      <body style={{ margin: 0, padding: 0, }}>
+      <body>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -45,20 +45,8 @@ export const links: LinksFunction = () => {
       crossOrigin: "anonymous",
     },
     {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Roboto&display=swap",
-    },
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap",
-    },
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Irish+Grover&family=RocknRoll+One&display=swap"
-    },
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Literata&display=swap"
+        href:"https://fonts.googleapis.com/css2?family=DotGothic16&family=Jersey+10&display=swap",
+        rel:"stylesheet"
     },
   ];
 };
