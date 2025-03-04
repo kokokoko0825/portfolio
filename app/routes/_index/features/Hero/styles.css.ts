@@ -6,6 +6,7 @@ import { style } from "@vanilla-extract/css";
 export const hero = style({
     display: "flex",
     width: "100%",
+    padding: "300px 0 0 0",
     flexDirection: "column",
     alignItems: "center",
     gap: "300px",

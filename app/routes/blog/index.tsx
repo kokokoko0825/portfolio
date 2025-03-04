@@ -1,26 +1,23 @@
 import { useEffect, useState } from "react";
 import { db } from "../../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import { Link } from "@remix-run/react";
+import { ArticleList, ArticleData } from "../../component/Article/ArticleList";
 import * as styles from "./styles.css";
-
-type BlogPost = {
-    id: string;
-    title: string;
-    createdAt: string;
-    thumbnail: string;
-};
-
+import { Link } from "@remix-run/react";
 export default function BlogIndex() {
-    const [posts, setPosts] = useState<BlogPost[]>([]);
+    const [posts, setPosts] = useState<ArticleData[]>([]);
 
     useEffect(() => {
         const fetchPosts = async () => {
             const querySnapshot = await getDocs(collection(db, "blogPosts"));
             const postsData = querySnapshot.docs.map(doc => ({
                 id: doc.id,
-                ...doc.data()
-            })) as BlogPost[];
+                title: doc.data().title,
+                description: doc.data().content.substring(0, 100), // content の一部を説明として使用
+                thumbnailUrl: doc.data().thumbnail,
+                date: doc.data().createdAt,
+                url: `/blog/${doc.id}`
+            })) as ArticleData[];
             setPosts(postsData);
         };
 
@@ -28,20 +25,14 @@ export default function BlogIndex() {
     }, []);
 
     return (
-        <div>
-            <div className={styles.title}>Blog List</div>
-            <ul>
-                {posts.map(post => (
-                    <li key={post.id}>
-                        <div className={styles.thumbnail}>
-                            <img src={post.thumbnail} alt={post.title} />
-                        </div>
-                        <div className={styles.title}>{post.title}</div>
-                        <p className="color: var(--color-white)">{post.createdAt}</p>
-                        <Link to={`/blog/${post.id}`}>Read More</Link>
-                    </li>
-                ))}
-            </ul>
+        <div className={styles.frame}>
+            <div className={styles.menu}>
+                <Link className={styles.text} to="/"> ホームに戻る</Link>
+            </div>
+            <div className={styles.titleFrame}>
+                <div className={styles.subTitle}>Blog List</div>
+            </div>
+            <ArticleList articles={posts} />
         </div>
     );
 }

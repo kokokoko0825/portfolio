@@ -3,7 +3,7 @@ import * as styles from "./styles.css";
 
 export const Profile = (): ReactNode => {
     return (
-        <div className={styles.Profile}>
+        <div id="profile" className={styles.Profile}>
             <div className={styles.subTitleFrame}>
                 <div className={styles.subTitle}>Profile</div>
             </div>
@@ -14,9 +14,11 @@ export const Profile = (): ReactNode => {
                         Webサイト作成やWebアプリ開発などフロントエンドの開発に興味があります。</div>
                     <div className={styles.link}>
                         <div className={styles.linkItem}>
-                            <a href="https://github.com/kokokoko0825">GitHub</a>
+                            <div className={styles.github}></div>
+                            <a href="https://github.com/kokokoko0825" >GitHub</a>
                         </div>
                         <div className={styles.linkItem}>
+                            <div className={styles.twitter}></div>
                             <a href="https://twitter.com/kokokoko0825">Twitter</a>
                         </div>
                     </div>

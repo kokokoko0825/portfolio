@@ -6,7 +6,7 @@ import "zenn-markdown-html";
 import "zenn-content-css";
 import * as styles from "./styles.css";
 
-type BlogPost = {
+type ProductPost = {
     title: string;
     content: string;
     createdAt: string;
@@ -14,16 +14,16 @@ type BlogPost = {
 };
 
 export default function BlogPost() {
-    const { blogId } = useParams();
-    const [post, setPost] = useState<BlogPost | null>(null);
+    const { productId } = useParams();
+    const [post, setPost] = useState<ProductPost | null>(null);
 
     useEffect(() => {
         const fetchPost = async () => {
-            if (blogId) {
-                const docRef = doc(db, "blogPosts", blogId);
+            if (productId) {
+                const docRef = doc(db, "productPosts", productId);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
-                    setPost(docSnap.data() as BlogPost);
+                    setPost(docSnap.data() as ProductPost);
                 }
             }
         };
@@ -34,7 +34,7 @@ export default function BlogPost() {
         import("zenn-embed-elements").then((module) => {
             // 必要に応じてモジュールを使用
         });
-    }, [blogId]);
+    }, [productId]);
 
     if (!post) return <div>Loading...</div>;
 

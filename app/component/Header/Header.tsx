@@ -1,5 +1,6 @@
 import { useState, ReactNode, useEffect } from "react";
 import * as styles from "./styles.css";
+import { Menu } from "../Menu/Menu";
 
 export function Header(): ReactNode {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -44,15 +45,22 @@ export function Header(): ReactNode {
             <div className={styles.header}>
                 {menuOpen && (
                     <div className={styles.menu}>
-                        <a className={styles.menuItem} href="#ticket">Ticket</a>
-                        <a className={styles.menuItem} href="#timetable">TimeTable</a>
-                        <a className={styles.menuItem} href="#caution">Caution</a>
+                        <Menu />
                     </div>
                 )}
                 <button className={styles.menuButton} onClick={toggleMenu}>
-                    <div className={styles.menuButtonLine}></div>
-                    <div className={styles.menuButtonLine}></div>
-                    <div className={styles.menuButtonLine}></div>
+                    {menuOpen ? (
+                        <div className={styles.closeButton}>
+                            <div className={styles.closeButtonLine1}></div>
+                            <div className={styles.closeButtonLine2}></div>
+                        </div>
+                    ) : (
+                        <>
+                            <div className={styles.menuButtonLine}></div>
+                            <div className={styles.menuButtonLine}></div>
+                            <div className={styles.menuButtonLine}></div>
+                        </>
+                    )}
                 </button>
             </div>
         </>

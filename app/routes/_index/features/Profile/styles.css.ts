@@ -44,6 +44,9 @@ export const icon = style({
     borderRadius: "200px",
     border: "4px solid black",
     background: "url(/images/account_icon_v2.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
 });
 
 export const aboutMe = style({
@@ -70,10 +73,31 @@ export const link = style({
 });
 
 export const linkItem = style({
+    display: "flex",
+    gap: "10px",
     color: vars.color.lightText,
     textAlign: "center",
     fontFamily: vars.typography.fontFamily.jap,
     fontSize: "16px",
     fontStyle: "normal",
     fontWeight: "400",
+    flexDirection: "row",
+});
+
+export const github = style({
+    width: "20px",
+    height: "20px",
+    background: "url(/images/github-mark-white-1.png)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+});
+
+export const twitter = style({
+    width: "20px",
+    height: "20px",
+    background: "url(/images/twitter-x-line-1.png)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
 });

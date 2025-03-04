@@ -1,11 +1,11 @@
-import { ReactNode, useEffect, useState } from "react";
-import { db } from "../../../../firebaseConfig";
+import { useEffect, useState } from "react";
+import { db } from "../../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import { ArticleList, ArticleData } from "../../../../component/Article/ArticleList";
+import { ArticleList, ArticleData } from "../../component/Article/ArticleList";
 import * as styles from "./styles.css";
-
-export const Products = (): ReactNode => {
-    const [articles, setArticles] = useState<ArticleData[]>([]);
+import { Link } from "@remix-run/react";
+export default function ProductIndex() {
+    const [posts, setPosts] = useState<ArticleData[]>([]);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -18,20 +18,21 @@ export const Products = (): ReactNode => {
                 date: doc.data().createdAt,
                 url: `/product/${doc.id}`
             })) as ArticleData[];
-            setArticles(postsData);
+            setPosts(postsData);
         };
 
         fetchPosts();
     }, []);
 
     return (
-        <div id="product" className={styles.products}>
-            <div className={styles.subtitleFrame}>
-                <div className={styles.subTitle}>Products</div>
+        <div className={styles.frame}>
+            <div className={styles.menu}>
+                <Link className={styles.text} to="/"> ホームに戻る</Link>
             </div>
-            <div className={styles.productList}>
-                <ArticleList articles={articles} />
+            <div className={styles.titleFrame}>
+                <div className={styles.subTitle}>Products List</div>
             </div>
+            <ArticleList articles={posts} />
         </div>
     );
 }

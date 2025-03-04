@@ -33,7 +33,9 @@ export const thumbnail = style({
 });
 
 export const content = style({
+    width: "100%",
     padding: "16px",
+    overflow: "hidden",
 });
 
 export const title = style({
@@ -56,6 +58,7 @@ export const description = style({
     fontFamily: vars.typography.fontFamily.jap,
     lineHeight: "1.5",
     marginBottom: "16px",
+    overflow: "hidden",
 });
 
 export const readMore = style({
@@ -75,7 +78,8 @@ export const readMore = style({
 
 export const articleList = style({
     display: "flex",
-    maxWidth: "100%",
+    width: "auto",
+    //minWidth: "60%",
     padding: "10px",
     alignItems: "center",  
     justifyContent: "center",

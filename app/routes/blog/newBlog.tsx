@@ -1,23 +1,44 @@
 import { useState } from "react";
 import { db } from "../../firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useDropzone } from "react-dropzone";
 
 export default function NewBlog() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const [thumbnail, setThumbnail] = useState("");
+    const [thumbnail, setThumbnail] = useState<File | null>(null);
+    const [thumbnailUrl, setThumbnailUrl] = useState("");
+
+    const onDrop = (acceptedFiles: File[]) => {
+        if (acceptedFiles.length > 0) {
+            setThumbnail(acceptedFiles[0]);
+        }
+    };
+
+    const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (thumbnail) {
+            const storage = getStorage();
+            const storageRef = ref(storage, `thumbnails/${thumbnail.name}`);
+            await uploadBytes(storageRef, thumbnail);
+            const url = await getDownloadURL(storageRef);
+            setThumbnailUrl(url);
+        }
+
         await addDoc(collection(db, "blogPosts"), {
             title,
             content,
-            thumbnail,
+            thumbnail: thumbnailUrl,
             createdAt: new Date().toISOString(),
         });
+
         setTitle("");
         setContent("");
-        setThumbnail("");
+        setThumbnail(null);
+        setThumbnailUrl("");
     };
 
     return (
@@ -31,13 +52,10 @@ export default function NewBlog() {
                     onChange={(e) => setTitle(e.target.value)}
                     required
                 />
-                <input
-                    type="text"
-                    placeholder="Thumbnail URL"
-                    value={thumbnail}
-                    onChange={(e) => setThumbnail(e.target.value)}
-                    required
-                />
+                <div {...getRootProps()} style={{ border: '2px dashed #ccc', padding: '20px', textAlign: 'center' }}>
+                    <input {...getInputProps()} />
+                    {thumbnail ? <p>{thumbnail.name}</p> : <p>Drag & drop a thumbnail here, or click to select one</p>}
+                </div>
                 <textarea
                     placeholder="Content"
                     value={content}

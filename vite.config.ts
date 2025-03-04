@@ -29,6 +29,10 @@ export default defineConfig({
           route("/blog/new", "routes/blog/newBlog.tsx");
           route("/blog/edit", "routes/blog/editBlog.tsx");
           route("/blog/:blogId", "routes/blog/$blogId.tsx");
+          route("/product", "routes/product/index.tsx");
+          route("/product/new", "routes/product/newPage.tsx");
+          route("/product/edit", "routes/product/editPage.tsx");
+          route("/product/:productId", "routes/product/$productId.tsx");
         });
       },
     }),

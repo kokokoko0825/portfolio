@@ -14,11 +14,15 @@ const menuSlideIn = keyframes({
 
 export const header = style({
     display: "flex",
-    padding: "14px 20px",
+    padding: "14px 0",
     justifyContent: "flex-end",
     alignItems: "center",
     gap: "10px",
-    alignSelf: "stretch",
+    position: "fixed",
+    top: 0,
+    width: "100%",
+    zIndex: 1000,
+    backgroundColor: vars.color.background,
 });
 
 export const menuButton = style({
@@ -32,6 +36,7 @@ export const menuButton = style({
     justifyContent: "space-around",
     alignItems: "center",
     padding: "0.5rem",
+    marginRight: "20px",
     boxSizing: "border-box",
     zIndex: 1000,
     '@media': {
@@ -49,13 +54,17 @@ export const menuButtonLine = style({
 });
 
 export const menu = style({
+    position: "absolute",
+    top: "100%",
     width: "auto",
+    padding: "0 20px",
     flexDirection: "column",
+    justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: vars.color.background,
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
     animation: `${menuSlideIn} 0.3s ease-out forwards`,
-    zIndex: 999,
+    zIndex: 1001,
 });
 
 export const menuItem = style({
@@ -74,3 +83,34 @@ export const menuItem = style({
         }
     }
 });
+
+export const closeButton = style({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    position: "relative",
+});
+
+export const closeButtonLine = style({
+    position: "absolute",
+    width: "100%",
+    height: "0.25rem",
+    backgroundColor: vars.color.lightText,
+    transformOrigin: "center",
+});
+
+export const closeButtonLine1 = style([
+    closeButtonLine,
+    {
+        transform: "rotate(45deg)",
+    },
+]);
+
+export const closeButtonLine2 = style([
+    closeButtonLine,
+    {
+        transform: "rotate(-45deg)",
+    },
+]);

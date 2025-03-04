@@ -7,6 +7,7 @@ import { Skill } from "./features/Skill/Skill";
 import { Blog } from "./features/Blog/Blog";
 import { Layout } from "./features/Layout/Layout";
 import { Link } from "@remix-run/react";
+import { Header } from "~/component/Header/Header";
 
 export default function Page(): ReactNode {
     useEffect(() => {
@@ -18,15 +19,13 @@ export default function Page(): ReactNode {
 
     return (
         <Layout>
+            <Header />
             <Hero />
             <About />
             <Profile />
             <Products />
             <Skill />
             <Blog />
-            <Link to="/blog">Blog</Link>
-            <Link to="/blog/new">NewBlog</Link>
-            <Link to="/blog/edit">EditBlog</Link>
         </Layout>
     );
 }

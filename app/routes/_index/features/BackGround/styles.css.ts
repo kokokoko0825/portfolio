@@ -5,11 +5,11 @@ export const backGround = style({
     display: "flex",
     width: "auto",
     height: "6168px",
-    background: "url(/images/back-ground.png)",
+    //background: "url(/images/back-ground.png)",
     backgroundColor: vars.color.background,
     backgroundPositionX: "center",
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     boxSizing: "border-box",
-    border: "1px solid red",
+    //border: "1px solid red",
 });
