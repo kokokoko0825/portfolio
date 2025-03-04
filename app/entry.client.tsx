@@ -8,11 +8,13 @@ import { RemixBrowser } from "@remix-run/react";
 import { startTransition, StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
 
+console.log("Client-side code initializing...");
+
 startTransition(() => {
   hydrateRoot(
     document,
-    <StrictMode>
+    //<StrictMode>
       <RemixBrowser />
-    </StrictMode>
+    //</StrictMode>
   );
 });

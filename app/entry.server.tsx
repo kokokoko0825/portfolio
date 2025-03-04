@@ -7,7 +7,7 @@
 import type { AppLoadContext, EntryContext } from "@remix-run/cloudflare";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
-import { renderToReadableStream } from "react-dom/server";
+import { renderToString } from "react-dom/server";
 
 const ABORT_DELAY = 5000;
 
@@ -24,33 +24,34 @@ export default async function handleRequest(
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), ABORT_DELAY);
 
-  const body = await renderToReadableStream(
-    <RemixServer
-      context={remixContext}
-      url={request.url}
-      abortDelay={ABORT_DELAY}
-    />,
-    {
-      signal: controller.signal,
-      onError(error: unknown) {
-        if (!controller.signal.aborted) {
-          // Log streaming rendering errors from inside the shell
-          console.error(error);
-        }
-        responseStatusCode = 500;
-      },
+  try {
+    console.log("Request URL:", request.url);
+    console.log("Request Headers:", JSON.stringify([...request.headers]));
+    console.log("Remix Context:", remixContext);
+
+    const markup = renderToString(
+      <RemixServer
+        context={remixContext}
+        url={request.url}
+      />
+    );
+
+    clearTimeout(timeoutId);
+
+    if (isbot(request.headers.get("user-agent") || "")) {
+      // await body.allReady;
     }
-  );
 
-  body.allReady.then(() => clearTimeout(timeoutId));
-
-  if (isbot(request.headers.get("user-agent") || "")) {
-    await body.allReady;
+    responseHeaders.set("Content-Type", "text/html");
+    return new Response(`<!DOCTYPE html>${markup}`, {
+      headers: responseHeaders,
+      status: responseStatusCode,
+    });
+  } catch (error) {
+    console.error("Error in handleRequest:", error);
+    console.error("Request URL:", request.url);
+    console.error("Request Headers:", JSON.stringify([...request.headers]));
+    console.error("Remix Context:", remixContext);
+    return new Response("Internal Server Error", { status: 500 });
   }
-
-  responseHeaders.set("Content-Type", "text/html");
-  return new Response(body, {
-    headers: responseHeaders,
-    status: responseStatusCode,
-  });
 }

@@ -40,6 +40,11 @@ export function Header(): ReactNode {
         };
     }, []);
 
+    const handleButtonClick = () => {
+        console.log("ボタンがクリックされました");
+        toggleMenu();
+    };
+
     return (
         <>
             <div className={styles.header}>
@@ -48,7 +53,7 @@ export function Header(): ReactNode {
                         <Menu />
                     </div>
                 )}
-                <button className={styles.menuButton} onClick={toggleMenu}>
+                <button className={styles.menuButton} onClick={handleButtonClick}>
                     {menuOpen ? (
                         <div className={styles.closeButton}>
                             <div className={styles.closeButtonLine1}></div>

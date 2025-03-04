@@ -11,12 +11,19 @@ export default function NewBlog() {
     const [thumbnailUrl, setThumbnailUrl] = useState("");
 
     const onDrop = (acceptedFiles: File[]) => {
+        console.log("ファイルがドロップされました:", acceptedFiles);
         if (acceptedFiles.length > 0) {
             setThumbnail(acceptedFiles[0]);
         }
     };
 
-    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accept: {
+            'image/*': []
+        },
+        maxFiles: 1
+    });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

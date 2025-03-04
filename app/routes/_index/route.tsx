@@ -11,6 +11,7 @@ import { Header } from "~/component/Header/Header";
 
 export default function Page(): ReactNode {
     useEffect(() => {
+        console.log("クライアントサイドコードが実行されています");
         const heroSection = document.getElementById("hero");
         if (heroSection) {
             heroSection.scrollIntoView({ behavior: "instant" });
